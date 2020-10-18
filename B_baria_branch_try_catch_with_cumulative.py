@@ -81,14 +81,10 @@ img.save('banner_ai.png')
 
 # sys.exit()
 try:
-    # dirpath = os.path.dirname(os.path.realpath(__file__))
-    # ----------------------------new code-----------------------------
-    # -----------convert the number into thousand----------------------
     def hazar(number):
         k = 1000.0
         final_number = number / 1000
         return '%.1f %s ' % (final_number, 'K')
-
 
     # ----------convert the number into thousand and give comma -------
     def joker(number):
@@ -118,10 +114,6 @@ try:
         else:
             return "-"
 
-
-    # ------------------------Add comma---------------------------------------
-
-    # -------------------------------------------------------------------
 
     def human_format(number):
         units = ['', 'K', 'M', 'B', 'T', 'P']
@@ -404,12 +396,6 @@ try:
     colors=['#f00228','#ff6500','#deff00','#2c8e14']
     bars = plt.bar(y_pos, performance, width, color=colors,align='center', alpha=1)
 
-    # bars[0].set_color('#f00228')
-    # bars[1].set_color('#ff6500')
-    # bars[2].set_color('#deff00')
-    # bars[3].set_color('#2c8e14')
-
-
     def autolabel(bars):
         for bar in bars:
             height = int(bar.get_height())
@@ -417,9 +403,7 @@ try:
                     for_bar(height),
                     ha='center', va='bottom', fontsize=12, rotation=45, fontweight='bold')
 
-
     autolabel(bars)
-
 
     def autolabel2(bars):
         for bar in bars:
@@ -505,11 +489,6 @@ try:
                     for_bar(height), ha='center', va='bottom', fontsize=12, rotation=45, fontweight='bold')
 
 
-    # bars[0].set_color('#2c8e14')
-    # bars[1].set_color('#deff00')
-    # bars[2].set_color('#ff6500')
-    # bars[3].set_color('#f00228')
-
     autolabel(bars)
 
 
@@ -519,7 +498,6 @@ try:
             ax.text(bar.get_x() + bar.get_width() / 2., .5 * height,
                     str(round(((height / aging_total) * 100), 1)) + "%",
                     ha='center', va='bottom', fontsize=12, fontweight='bold')
-
 
     autolabel3(bars)
 
@@ -630,11 +608,6 @@ try:
     maf_kor3 = max(performance)
 
 
-    # bars[0].set_color('#f00228')
-    # bars[1].set_color('#ff6500')
-    # bars[2].set_color('#deff00')
-    # bars[3].set_color('#2c8e14')
-
     def autolabel(bars):
         for bar in bars:
             height = int(bar.get_height())
@@ -710,9 +683,7 @@ try:
     imageSize.save(dirpath + "/all_regular_credit.png")
 
     # # --------------------return kpi----------------------------
-    # # ----------------------------------------------------------
-    # # ----------------------------------------------------------
-    #
+
     left, width = 0.0, .19
     bottom, height = .5, 1
     right = left + width
@@ -792,6 +763,7 @@ try:
                 (convert(varchar(8),DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0),112))
                 and (convert(varchar(8),DATEADD(D,0,GETDATE()),112)))
                             """, connection, params={branc_names})
+
     monthly_return = float(monthly_return_df['ReturnAmount'])
     m_sales = int(monthly_sales['MTDSales'])
     retn = abs(monthly_return)
@@ -804,6 +776,7 @@ try:
             verticalalignment='center',
             fontsize=24, color='black',
             transform=ax.transAxes)
+
     ax.text(.5 * (left + right), .4 * (bottom + top), return_p,
             horizontalalignment='center',
             verticalalignment='center',
@@ -815,6 +788,7 @@ try:
                     select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails
                     where AUDTORG like ? AND TRANSDATE>= (convert(varchar(8),DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0),112))
                     """, connection, params={branc_names})
+
     yearly_return = pd.read_sql_query("""
                           select isnull(sum(EXTINVMISC),0) as ReturnAmount from OESalesDetails where
                         AUDTORG like ? and
@@ -822,6 +796,7 @@ try:
                         (TRANSDATE between (convert(varchar(8),DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0),112))
                         and (convert(varchar(8),DATEADD(D,0,GETDATE()),112)))
          """, connection, params={branc_names})
+
     left, width = .40, .19
     bottom, height = .5, .5
     right = left + width
@@ -838,11 +813,13 @@ try:
     )
     ax.add_patch(p)
     kpi_label = 'YTD' + "\n"
+
     ax.text(.5 * (left + right), .5 * (bottom + top), kpi_label,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=24, color='black',
             transform=ax.transAxes)
+
     ax.text(.5 * (left + right), .4 * (bottom + top), return_p,
             horizontalalignment='center',
             verticalalignment='center',
@@ -864,6 +841,7 @@ try:
         transdate between (convert(varchar(6), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
         and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112))
                             """, connection, params={branc_names})
+
     monthly_return = float(yago_monthly_return_df['ReturnAmount'])
     m_sales = int(yago_monthly_sales['MTDSales'])
     left, width = .60, .19
@@ -880,16 +858,19 @@ try:
     return_p = '%.2f' % (ret1)
     return_p = str(return_p) + '%'
     kpi_label = 'YAGO MTD' + "\n"
+
     ax.text(.5 * (left + right), .5 * (bottom + top), kpi_label,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=24, color='black',
             transform=ax.transAxes)
+
     ax.text(.5 * (left + right), .4 * (bottom + top), return_p,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=34, color='black',
             transform=ax.transAxes)
+
     print('YAGO MTD Return Added')
     # # # ---------- YAGO YTD Return  Box ------------------------
     yago_yearly_sales = pd.read_sql_query("""
@@ -897,6 +878,7 @@ try:
                         where AUDTORG like ? AND TRANSDATE between (convert(varchar(8), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
                         and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112))
                         """, connection, params={branc_names})
+
     yago_yearly_return = pd.read_sql_query("""
                         select isnull(sum(EXTINVMISC),0) as ReturnAmount from OESalesDetails where
                         AUDTORG like ? and
@@ -904,6 +886,7 @@ try:
                         (TRANSDATE between (convert(varchar(8), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
                         and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112)))
                         """, connection, params={branc_names})
+
     left, width = .80, .20
     bottom, height = .5, .5
     right = left + width
@@ -920,16 +903,19 @@ try:
     )
     ax.add_patch(p)
     kpi_label = 'YAGO YTD' + "\n"
+
     ax.text(.5 * (left + right), .5 * (bottom + top), kpi_label,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=24, color='black',
             transform=ax.transAxes)
+
     ax.text(.5 * (left + right), .4 * (bottom + top), return_p,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=34, color='black',
             transform=ax.transAxes)
+
     # plt.tight_layout()
     plt.savefig('./return.png')
     dirpath = os.path.dirname(os.path.realpath(__file__))
@@ -1206,42 +1192,29 @@ try:
 
         YTD_Target_df = pd.read_sql_query(""" select ISNULL((Sum(TARGET)), 0) as  YTDTarget from TDCL_BranchTarget  
                         where convert(varchar(4), YEARMONTH,112) = convert(varchar(4), GETDATE(),112)
-                          and AUDTORG like ?""",
-                                          connection, params={branc_names})
+                          and AUDTORG like ?""", connection, params={branc_names})
 
         yoyo = YTD_Target_df.values
-
         Ytd_target = int(yoyo[0, 0])
-
         final_ytd_target = int(Ytd_target - ((Mtd_target / total_days) * (total_days - no_of_days)))
-
         LD_Sales_df = pd.read_sql_query("""Declare @Currentday NVARCHAR(MAX);
-
                         SET @Currentday = convert(varchar(8), GETDATE()-1,112);
-
                         select  isnull(Sum(EXTINVMISC),0) as  YesterdaySales from OESalesDetails  
                         where LEFT(TRANSDATE,8) = @Currentday and AUDTORG like ? """, connection, params={branc_names})
 
         Ld_toto = LD_Sales_df.values
-
         MTD_Sales_df = pd.read_sql_query(""" Declare @Currentmonth NVARCHAR(MAX);
-
                         SET @Currentmonth = convert(varchar(6), GETDATE(),112);
-
                         select  isnull(Sum(EXTINVMISC),0) as  MTDSales from OESalesDetails  
                         where LEFT(TRANSDATE,6) = @Currentmonth and AUDTORG like ?""", connection, params={branc_names})
 
         MTD_momo = MTD_Sales_df.values
-
         YTD_Sales_df = pd.read_sql_query("""Declare @Currentyear NVARCHAR(MAX);
-
                         SET @Currentyear = convert(varchar(4), GETDATE(),112);
-
                         select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails  
                         where LEFT(TRANSDATE,4) = @Currentyear and AUDTORG like ? """, connection, params={branc_names})
 
         YTD_yoyo = YTD_Sales_df.values
-
         labels = ['LD', 'MTD', 'YTD']
         aa = int(final_mtd_target / 1000)
         bb = int(final_ytd_target / 1000)
@@ -1353,11 +1326,6 @@ try:
         Target.append(int(target_for_target / 1000))
         n = n + 1
 
-    # print(Target)
-    # print(labell)
-    # labell.append(20)
-
-    # sys.exit()
     # ----------------code for cumulitive sales------------
     import calendar
     import datetime
@@ -1398,8 +1366,6 @@ try:
             new.append(final)
             final = 0
 
-    # print(every_day_sale)
-    # print(new)#--------------------------sales data
 
     x = range(len(ttt))
     xx = range(len(new))
@@ -1443,8 +1409,6 @@ try:
     imageSize.paste(imp20, (1, 1))
     imageSize.paste(imp21, (widthx + 2, 1))
     imageSize.save(dirpath + "/Cause_wise_delivery_man_wise_return.png")
-
-    # --------------- Close TO Mature Credit Redords -------------------
 
     # ------------adding cause wise return and delivery man wise return----------
 
@@ -1871,7 +1835,7 @@ try:
     msgRoot = MIMEMultipart('related')
     me = 'erp-bi.service@transcombd.com'
 
-    to = ['bashir.ahmed@transcombd.com', '']
+    to = ['rejaul.islam@transcombd.com', '']
     cc = ['', '']
     bcc = ['', '']
     recipient = to + cc + bcc
@@ -2099,8 +2063,7 @@ except:
                                 <img src="cid:banner" height='230' width='796'> <br>
                                <h3 style="color:#FF0000";> The mail did not get generated for some issues.</h3>
 
-                                <br>
-                                <img src="cid:logoo" height='70' width='150'> <br>
+                                <br> <img src="cid:logoo" height='70' width='150'> <br>
 
                                <i><font color="blue">****This is a system generated report ****</i></font>""",
                        'html')
@@ -2140,5 +2103,4 @@ except:
     datetime_BD = datetime.now(tz_NY)
     print("Execution time:", datetime_BD.strftime("%I:%M %p"))
     import winsound
-
     winsound.Beep(1000, 500)
