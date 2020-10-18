@@ -11,7 +11,9 @@ import KPIs.category_wise_cash_outstanding as cash
 import KPIs.aging_cash_drop as cash_drop
 # import KPIs.join_all_images as fig_join
 # import KPIs.return_info as return_info
-import KPIs.cause_wise_return as cause_return
+# import KPIs.cause_wise_return as cause_return
+import KPIs.deliveryman_wise_return as dp_return
+
 
 # banner.create_banner('VRBSKF')
 # trems_outs.create_terms_wise_outstanding('VRBSKF')
@@ -24,4 +26,5 @@ import KPIs.cause_wise_return as cause_return
 # cash_drop.aging_cash_drop('VRBSKF')
 # fig_join.join_all_images()
 # return_info.generate_all_return_info('VRBSKF')
-cause_return.cause_wise_teturn('VRBSKF')
+# dp_return.dp_man_wise_return('VRBSKF')
+# cause_return.cause_wise_teturn('VRBSKF')
