@@ -42,4 +42,4 @@ def create_banner(branch_name):
     timestore.text((25, 435), time + "\n" + day, (255, 255, 255), font=font2)
     timestore.text((27, 380), 'NDM : ' + ndmname_generator[0], (255, 165, 0), font=font2)
     img.save('./Images/banner_ai.png')
-    print('Fig 01: Banner Created')
+    print('Banner Created')
