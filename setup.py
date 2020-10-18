@@ -16,6 +16,7 @@ import KPIs.deliveryman_wise_return as dp_return
 import KPIs.day_wise_target_vs_sales as day_target_sales
 import KPIs.target_vs_sales as target_sales
 import KPIs.cumulative_sales_target as cm_target_sales
+import KPIs.excel_file_genetator as data_generator
 
 # banner.create_banner('VRBSKF')
 # trems_outs.create_terms_wise_outstanding('VRBSKF')
@@ -33,3 +34,5 @@ import KPIs.cumulative_sales_target as cm_target_sales
 # target_sales.target_sales('VRBSKF')
 # day_target_sales.day_wise_target_sales('VRBSKF')
 # cm_target_sales.cumulative_sales_target('VRBSKF')
+
+data_generator.closed_to_matured_data('VRBSKF')
