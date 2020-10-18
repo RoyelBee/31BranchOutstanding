@@ -37,5 +37,8 @@ import KPIs.excel_file_genetator as data_generator
 
 # data_generator.closed_to_matured_data('VRBSKF')
 # data_generator.colsed_to_matured_mail_data('VRBSKF')
-data_generator.get_html_table()
-data_generator.aging_matured_data('VRBSKF')
+# data_generator.get_html_table()
+# data_generator.aging_matured_data('VRBSKF')
+# data_generator.aging_matured_table('VRBSKF')
+# data_generator.get_html_table1()
+# data_generator.cash_drop_data('VRBSKF')

@@ -1630,6 +1630,7 @@ try:
                     order by datediff([dd] , CONVERT (DATE , LTRIM(cust_out.INVDATE) , 102) , GETDATE())+1 desc
                       , OUT_NET desc
                      """, connection, params={branc_names})
+
     writer = pd.ExcelWriter('CashDrop.xlsx', engine='xlsxwriter')
     CashDrop_df.index = np.arange(1, len(CashDrop_df) + 1)
     CashDrop_df.to_excel(writer, sheet_name='Sheet1', index=True)
