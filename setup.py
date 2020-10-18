@@ -13,6 +13,7 @@ import KPIs.aging_cash_drop as cash_drop
 # import KPIs.return_info as return_info
 # import KPIs.cause_wise_return as cause_return
 import KPIs.deliveryman_wise_return as dp_return
+import KPIs.day_wise_target_vs_sales as day_target_sales
 
 
 # banner.create_banner('VRBSKF')
@@ -28,3 +29,4 @@ import KPIs.deliveryman_wise_return as dp_return
 # return_info.generate_all_return_info('VRBSKF')
 # dp_return.dp_man_wise_return('VRBSKF')
 # cause_return.cause_wise_teturn('VRBSKF')
+day_target_sales.day_wise_target_sales('VRBSKF')
