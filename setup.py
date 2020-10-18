@@ -1,4 +1,5 @@
 import smtplib
+import traceback
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
@@ -17,8 +18,7 @@ import pytz
 import datetime as dd
 from PIL import Image
 from datetime import datetime
-
-import KPIs.banner as banner
+import os
 import KPIs.terms_wise_outstanding as trems_outs
 import KPIs.category_wise_credit as cat_credit
 import KPIs.matured_credit as m_credit
@@ -36,22 +36,30 @@ import KPIs.target_vs_sales as target_sales
 import KPIs.cumulative_sales_target as cm_target_sales
 import KPIs.excel_file_genetator as data_generator
 import Functions.email_finder as email
+import KPIs.html_section as html_sec
 
-b_list = ['JESSKF']
+b_list = ['MIRSKF', 'KHLSKF', 'JESSKF']
 
 for i in range(len(b_list)):
+
     try:
-        banner.create_banner(b_list[i])  # 0
+
+        import KPIs.banner as banner
+        banner.create_banner_fig(b_list[i])
         trems_outs.create_terms_wise_outstanding(b_list[i])  # 1
+
         cat_credit.category_wise_credit(b_list[i])  # 2
         m_credit.matured_credit(b_list[i])  # 3
         aging_m_credit.aging_matured_credit(b_list[i])  # 4
+
         sec_non_mature_credit.sector_wise_non_matured_credit(b_list[i])  # 5
         c_m_credit.closed_matured_credit(b_list[i])  # 6
         cash.cash_outstanding(b_list[i])  # 7
+
         cash_drop.aging_cash_drop(b_list[i])  # 8
-        dp_return.dp_man_wise_return(b_list[i])  # 9
+        dp_return.dp_man_wise_return(b_list[i])  # 9zss
         cause_return.cause_wise_teturn(b_list[i])  # 10
+
         target_sales.target_sales(b_list[i])  # 11
         day_target_sales.day_wise_target_sales(b_list[i])  # 11
         cm_target_sales.cumulative_sales_target(b_list[i])  # 12
@@ -62,25 +70,23 @@ for i in range(len(b_list)):
         data_generator.closed_to_matured_data(b_list[i])
         data_generator.colsed_to_matured_mail_data(b_list[i])
         data_generator.aging_matured_data(b_list[i])
+
         data_generator.aging_matured_table(b_list[i])
         data_generator.cash_drop_data(b_list[i])
         data_generator.cashdrop_table(b_list[i])
 
-        import KPIs.html_section as html_sec
 
         html_sec.get_html_table()
         html_sec.get_html_table2()
         html_sec.get_html_table2()
         all_table = html_sec.all_table
 
-        # print('Mail is going to send.... = ', to)
 
         msgRoot = MIMEMultipart('related')
         me = 'erp-bi.service@transcombd.com'
 
-        # to = ['rejaul.islam@transcombd.com', '']
-        to = email.find_to_email(b_list[i])
-        to = [to, '']
+        mail = email.find_to_email(b_list[i])
+        to = [mail, '']
         cc = ['', '']
         bcc = ['', '']
         recipient = to + cc + bcc
@@ -109,14 +115,14 @@ for i in range(len(b_list)):
                <img src="cid:all_regular_credit"  width='796'> <br>
                <img src="cid:all_cash"  width='796'> <br>
                <img src="cid:main_return" width='796'> <br>
-    
+
                <img src="cid:delivery_mans_return_with_cause"  width='796'><br>
                 <img src="cid:return_with_cause"  width='796'><br>
                <img src="cid:day_wise_sales_target"  width='796'><br>
                <img src="cid:cumulative_day_wise_sales_target"  width='796'><br>
-    
+
                """ + all_table + """
-    
+
                 <br>
                 <img src="cid:logoo" height='70' width='150'> <br>
                <i><font color="blue">****This is a system generated report ****</i></font>""",
@@ -262,18 +268,26 @@ for i in range(len(b_list)):
         server.sendmail(me, recipient, msgRoot.as_string())
         print('Mail Send')
         print('-------------------')
-        server.close()
+        # server.close()
 
-        from datetime import datetime
-        import pytz
+        # from datetime import datetime
+        # import pytz
+        #
+        # tz_NY = pytz.timezone('Asia/Dhaka')
+        # datetime_BD = datetime.now(tz_NY)
+        # print("Execution time:", datetime_BD.strftime("%I:%M %p"))
+        # import winsound
+        #
+        # winsound.Beep(1000, 500)
+        import time
+        time.sleep(5)
 
-        tz_NY = pytz.timezone('Asia/Dhaka')
-        datetime_BD = datetime.now(tz_NY)
-        print("Execution time:", datetime_BD.strftime("%I:%M %p"))
-        import winsound
+    except Exception as e:
+        error_title = str(e)
+        error_details = traceback.format_exc()
 
-        winsound.Beep(1000, 500)
-    except:
+        print(error_title)
+
         msgRoot = MIMEMultipart('related')
         me = 'erp-bi.service@transcombd.com'
 
@@ -300,13 +314,12 @@ for i in range(len(b_list)):
         msgAlternative.attach(msgText)
 
         msgText = MIMEText("""
-                                        <img src="cid:banner" height='230' width='796'> <br>
-                                       <h3 style="color:#FF0000";> The mail did not get generated for some issues.</h3>
+                <img src="cid:banner" height='230' width='796'> <br>
+               <h3 style="color:#FF0000";> The mail did not get generated for some issues.</h3>
+                <br> <img src="cid:logoo" height='100' width='250'> <br>
+               <i><font color="blue">****This is a system generated report ****</i></font>""",
 
-                                        <br> <img src="cid:logoo" height='100' width='250'> <br>
-
-                                       <i><font color="blue">****This is a system generated report ****</i></font>""",
-                           'html')
+                       'html')
 
         msgAlternative.attach(msgText)
 
@@ -345,4 +358,4 @@ for i in range(len(b_list)):
         import winsound
 
         winsound.Beep(1000, 500)
-        print('You got an error ')
+
