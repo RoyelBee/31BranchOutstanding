@@ -1269,7 +1269,6 @@ try:
         # plt.show()
         plt.savefig('LD_MTD_YTD_TARGET_vs_sales.png')
     # -------------------------------------cumulative sales vs target-----------------
-
     ever_sale_df = pd.read_sql_query("""select right(formatdate,2) as days,isnull(amount,0) as Amount from (
     select formatdate from [Calendar] where left(formatdate,6)=convert(varchar(6), GETDATE(),112)) as cal
     left join (
