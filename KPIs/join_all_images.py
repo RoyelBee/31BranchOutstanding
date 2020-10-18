@@ -67,32 +67,32 @@ def join_all_images():
     imageSize.paste(imp6, (widthx + 2, 0))
     imageSize.save("./Images/all_regular_credit.png")
 
-    imp20 = Image.open("./Images//Cause_with_return.png")
+    imp20 = Image.open("./Images/Cause_with_return.png")
     widthx, heightx = imp20.size
-    imp21 = Image.open("./Images//LD_MTD_YTD_TARGET_vs_sales.png")
+    imp21 = Image.open("./Images/LD_MTD_YTD_TARGET_vs_sales.png")
     imageSize = Image.new('RGB', (1283, 482))
     imageSize.paste(imp20, (1, 1))
     imageSize.paste(imp21, (widthx + 2, 1))
-    imageSize.save("./Images//Cause_wise_delivery_man_wise_return.png")
+    imageSize.save("./Images/Cause_wise_delivery_man_wise_return.png")
 
     # ------------adding cause wise return and delivery man wise return----------
 
-    imp22 = Image.open("./Images//Delivery_man_wise_return.png")
+    imp22 = Image.open("./Images/Delivery_man_wise_return.png")
     widthx, heightx = imp22.size
     imageSize = Image.new('RGB', (1283, 482))
     imageSize.paste(imp22, (1, 1))
-    imageSize.save("./Images//new_total_delivery_man_wise_return.png")
+    imageSize.save("./Images/new_total_delivery_man_wise_return.png")
 
     # ------------adding cause wise return and delivery man wise return----------
 
-    imp23 = Image.open("./Images//Day_Wise_Target_vs_Sales.png")
+    imp23 = Image.open("./Images/Day_Wise_Target_vs_Sales.png")
     widthx, heightx = imp23.size
     imageSize = Image.new('RGB', (1283, 482))
     imageSize.paste(imp23, (1, 1))
     imageSize.save("./Images//Day_wise_target_sales.png")
 
-    imp24 = Image.open("./Images//Cumulative_Day_Wise_Target_vs_Sales.png")
+    imp24 = Image.open("./Images/Cumulative_Day_Wise_Target_vs_Sales.png")
     widthx, heightx = imp24.size
     imageSize = Image.new('RGB', (1283, 482))
     imageSize.paste(imp24, (1, 1))
-    imageSize.save("./Images//Cumulative_Day_wise_target_sales.png")
+    imageSize.save("./Images/Cumulative_Day_wise_target_sales.png")
