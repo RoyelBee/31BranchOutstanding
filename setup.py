@@ -35,4 +35,7 @@ import KPIs.excel_file_genetator as data_generator
 # day_target_sales.day_wise_target_sales('VRBSKF')
 # cm_target_sales.cumulative_sales_target('VRBSKF')
 
-data_generator.closed_to_matured_data('VRBSKF')
+# data_generator.closed_to_matured_data('VRBSKF')
+# data_generator.colsed_to_matured_mail_data('VRBSKF')
+data_generator.get_html_table()
+data_generator.aging_matured_data('VRBSKF')
