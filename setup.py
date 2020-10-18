@@ -9,7 +9,8 @@ import KPIs.aging_matured_credit as aging_m_credit
 import KPIs.sector_wise_non_mature_credit as sec_non_mature_credit
 import KPIs.category_wise_cash_outstanding as cash
 import KPIs.aging_cash_drop as cash_drop
-
+# import KPIs.join_all_images as fig_join
+import KPIs.return_info as return_info
 
 
 # banner.create_banner('VRBSKF')
@@ -21,3 +22,5 @@ import KPIs.aging_cash_drop as cash_drop
 # sec_non_mature_credit.sector_wise_non_matured_credit('VRBSKF')
 # cash.cash_outstanding('VRBSKF')
 # cash_drop.aging_cash_drop('VRBSKF')
+# fig_join.join_all_images()
+return_info.generate_all_return_info('VRBSKF')
