@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
@@ -47,20 +46,19 @@ def generate_all_return_info(branch_name):
     )
     ax.add_patch(p)
 
-
-
-
     # -------- Last Day Return  ----------------------------------------------
     lastDaySales = pd.read_sql_query("""
                             select  isnull(Sum(EXTINVMISC),0) as  LastDaySales from OESalesDetails
                             where TRANSDATE = convert(varchar(8),DATEADD(D,0,GETDATE()-1),112)
                             and AUDTORG like ?
                                             """, func.con, params={branch_name})
+
     LastDayReturn = pd.read_sql_query("""
                             select ISNULL(sum(EXTINVMISC), 0) as ReturnAmount from OESalesDetails
                             where AUDTORG like ? and transtype<>1 and PRICELIST <> 0 and
                             (TRANSDATE = convert(varchar(8),DATEADD(D,0,GETDATE()-1),112))
                              """, func.con, params={branch_name})
+
     ld_sales = int(lastDaySales['LastDaySales'])
     ld_return = float(LastDayReturn['ReturnAmount'])
     l_retn = abs(ld_return)
@@ -73,12 +71,13 @@ def generate_all_return_info(branch_name):
             verticalalignment='center',
             fontsize=24, color='black',
             transform=ax.transAxes)
+
     ax.text(.5 * (left + right), .4 * (bottom + top), return_p,
             horizontalalignment='center',
             verticalalignment='center',
             fontsize=34, color='red',
             transform=ax.transAxes)
-    print('Last Day Return Added')
+    # print('Last Day Return Added')
     # --------------------  Monthly  Return  Box --------------------------------
     left, width = .20, .19
     bottom, height = .5, .5
@@ -112,6 +111,7 @@ def generate_all_return_info(branch_name):
     return_p = '%.2f' % (ret1)
     return_p = str(return_p) + '%'
     kpi_label = 'MTD' + "\n"
+
     ax.text(.5 * (left + right), .5 * (bottom + top), kpi_label,
             horizontalalignment='center',
             verticalalignment='center',
@@ -123,7 +123,8 @@ def generate_all_return_info(branch_name):
             verticalalignment='center',
             fontsize=34, color='red',
             transform=ax.transAxes)
-    print('MTD Return Added')
+
+    # print('MTD Return Added')
     # # ---------- Yearly return Box ------------------------
     yearly_sales = pd.read_sql_query("""
                         select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails
@@ -148,6 +149,7 @@ def generate_all_return_info(branch_name):
     return_p = float((return_amount / y_sales) * 100)
     return_p = '%.2f' % (return_p)
     return_p = str(return_p) + '%'
+
     p = patches.Rectangle(
         (left, bottom), width, height,
         color='#fcea17'
@@ -166,7 +168,7 @@ def generate_all_return_info(branch_name):
             verticalalignment='center',
             fontsize=34, color='red',
             transform=ax.transAxes)
-    print('YTD Return Added')
+    # print('YTD Return Added')
 
     # # ---------- YAGO MTD  Return Box ------------------------
     yago_monthly_sales = pd.read_sql_query("""Declare @YagoMonthStartDay NVARCHAR(MAX);
@@ -213,7 +215,7 @@ def generate_all_return_info(branch_name):
             fontsize=34, color='black',
             transform=ax.transAxes)
 
-    print('YAGO MTD Return Added')
+    # print('YAGO MTD Return Added')
     # # # ---------- YAGO YTD Return  Box ------------------------
     yago_yearly_sales = pd.read_sql_query("""
                             select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails
@@ -239,6 +241,7 @@ def generate_all_return_info(branch_name):
     return_p = float((return_amount / y_sales) * 100)
     return_p = '%.2f' % (return_p)
     return_p = str(return_p) + '%'
+
     p = patches.Rectangle(
         (left, bottom), width, height,
         color='#fc8b17'
@@ -268,7 +271,7 @@ def generate_all_return_info(branch_name):
     bottom = 200
     im1 = im.crop((left, top, right, bottom))
     im1.save('./Images/return.png')
-    print('Return Generated ')
+    # print('Return Generated ')
 
     # # Join Title and Results
     title_img = Image.open("./Images/return_text.png")
@@ -277,3 +280,4 @@ def generate_all_return_info(branch_name):
     dst.paste(title_img, (0, 0))
     dst.paste(return_img, (1, title_img.height))
     dst.save('./Images/main_return.png')
+    print('All Return KPI generated')
