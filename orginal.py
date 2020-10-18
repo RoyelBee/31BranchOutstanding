@@ -63,7 +63,6 @@ connection = db.connect('DRIVER={SQL Server};'
                         'DATABASE=ARCHIVESKF;'
                         'UID=sa;PWD=erp@123')
 
-cursor = connection.cursor()
 
 branchname_generator_df = pd.read_sql_query("""select branch,ndmname,branchname from ndm where branch like ?""",
                                             connection, params={branc_names})
