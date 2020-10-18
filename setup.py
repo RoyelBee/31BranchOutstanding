@@ -9,7 +9,7 @@ import KPIs.aging_matured_credit as aging_m_credit
 import KPIs.sector_wise_non_mature_credit as sec_non_mature_credit
 import KPIs.category_wise_cash_outstanding as cash
 import KPIs.aging_cash_drop as cash_drop
-# import KPIs.join_all_images as fig_join
+import KPIs.join_all_images as fig_join
 # import KPIs.return_info as return_info
 # import KPIs.cause_wise_return as cause_return
 import KPIs.deliveryman_wise_return as dp_return
@@ -32,4 +32,4 @@ import KPIs.cumulative_sales_target as cm_target_sales
 # cause_return.cause_wise_teturn('VRBSKF')
 # target_sales.target_sales('VRBSKF')
 # day_target_sales.day_wise_target_sales('VRBSKF')
-cm_target_sales.cumulative_sales_target('VRBSKF')
+# cm_target_sales.cumulative_sales_target('VRBSKF')
