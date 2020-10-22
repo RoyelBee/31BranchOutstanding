@@ -1,16 +1,8 @@
 import datetime
-import os
 import smtplib
 from _datetime import datetime
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import Functions.design_report_layout as layout
-import Functions.read_gpm_info as gpm
-import path as d
-
 import pandas as pd
 import Functions.helper_functions as func
 
@@ -21,9 +13,9 @@ def send_error_msg(bramch):
     #     bcc = ['', '']
     #     print('Report Sending to = ', to)
 
-    to = ['rafiul.ramjan@transcombd.com', '']
+    to = ['yakub@transcombd.com', 'tawhid@transcombd.com']
     cc = ['', '']
-    bcc = ['', '']
+    bcc = ['aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com', 'fazle.rabby@transcombd.com']
 
     msgRoot = MIMEMultipart('related')
     me = 'erp-bi.service@transcombd.com'
