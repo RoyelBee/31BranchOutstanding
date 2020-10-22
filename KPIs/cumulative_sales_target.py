@@ -1,28 +1,8 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
 
-dirpath = os.path.dirname(os.path.realpath(__file__))
-
-import smtplib
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from math import log, floor
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pyodbc as db
-import xlrd
-from matplotlib.patches import Patch
-from PIL import Image, ImageDraw, ImageFont
-import pytz
-import datetime as dd
-from PIL import Image
-from datetime import datetime
+
 
 import Functions.helper_functions as func
 

@@ -1,28 +1,7 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
 
-dirpath = os.path.dirname(os.path.realpath(__file__))
-
-import smtplib
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from math import log, floor
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pyodbc as db
-import xlrd
-from matplotlib.patches import Patch
-from PIL import Image, ImageDraw, ImageFont
-import pytz
-import datetime as dd
-from PIL import Image
-from datetime import datetime
 
 import Functions.helper_functions as func
 
@@ -32,14 +11,15 @@ def day_wise_target_sales(branch_name):
         daily_sales_df = pd.read_sql_query("""select Right(transdate,2) as [day], isnull(Sum(EXTINVMISC),0)/1000 as  EverydaySales from OESalesDetails  
                         where LEFT(TRANSDATE,6) =convert(varchar(6), GETDATE(),112)  and AUDTORG like ?
                         group by transdate
-                        order by transdate""", func.con, params={branch_name})
+                        order by transdate """, func.con, params={branch_name})
 
-        EveryD_Target_df = pd.read_sql_query("""Declare @CurrentMonth NVARCHAR(MAX);
+        EveryD_Target_df = pd.read_sql_query(""" Declare @CurrentMonth NVARCHAR(MAX);
                         Declare @DaysInMonth NVARCHAR(MAX);
                         SET @CurrentMonth = convert(varchar(6), GETDATE(),112)
                         SET @DaysInMonth = DAY(EOMONTH(GETDATE())) 
                         select ISNULL((Sum(TARGET)/@DaysInMonth), 0) as  YesterdayTarget from TDCL_BranchTarget  
-                        where YEARMONTH = @CurrentMonth and AUDTORG like ?""", func.con, params={branch_name})
+                        where YEARMONTH = @CurrentMonth and AUDTORG like ? """, func.con, params={branch_name})
+
         totarget = EveryD_Target_df.values
         target_for_target = int(totarget[0, 0])
 

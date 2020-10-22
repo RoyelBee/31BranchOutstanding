@@ -1,28 +1,8 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
 
-dirpath = os.path.dirname(os.path.realpath(__file__))
-
-import smtplib
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from math import log, floor
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import pyodbc as db
-import xlrd
-from matplotlib.patches import Patch
-from PIL import Image, ImageDraw, ImageFont
-import pytz
-import datetime as dd
 from PIL import Image
-from datetime import datetime
 
 import Functions.helper_functions as func
 
@@ -48,14 +28,14 @@ def generate_all_return_info(branch_name):
 
     # -------- Last Day Return  ----------------------------------------------
     lastDaySales = pd.read_sql_query("""
-                            select  isnull(Sum(EXTINVMISC),0) as  LastDaySales from OESalesDetails
+                            select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT),0) as  LastDaySales from OESalesSummery
                             where TRANSDATE = convert(varchar(8),DATEADD(D,0,GETDATE()-1),112)
                             and AUDTORG like ?
-                                            """, func.con, params={branch_name})
+                                    """, func.con, params={branch_name})
 
     LastDayReturn = pd.read_sql_query("""
-                            select ISNULL(sum(EXTINVMISC), 0) as ReturnAmount from OESalesDetails
-                            where AUDTORG like ? and transtype<>1 and PRICELIST <> 0 and
+                            select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT),0) as  ReturnAmount from OESalesSummery
+                            where AUDTORG like ? and transtype<>1 and
                             (TRANSDATE = convert(varchar(8),DATEADD(D,0,GETDATE()-1),112))
                              """, func.con, params={branch_name})
 
@@ -89,16 +69,16 @@ def generate_all_return_info(branch_name):
     )
     ax.add_patch(p)
     monthly_sales = pd.read_sql_query(""" Declare @monthStartDay NVARCHAR(MAX);
-                            Declare @monthCurrentDay NVARCHAR(MAX);
-                            SET @monthStartDay = convert(varchar(8),DATEADD(month, DATEDIFF(month, 0,  GETDATE()), 0),112)
-                            set @monthCurrentDay = convert(varchar(8),DATEADD(D,0,GETDATE()),112);
-                            select  isnull(Sum(EXTINVMISC),0) as  MTDSales from OESalesDetails
-                            where TRANSDATE between  @monthStartDay and @monthCurrentDay
-                            and AUDTORG like ?
-                            """, func.con, params={branch_name})
+                    Declare @monthCurrentDay NVARCHAR(MAX);
+                    SET @monthStartDay = convert(varchar(8),DATEADD(month, DATEDIFF(month, 0,  GETDATE()), 0),112)
+                    set @monthCurrentDay = convert(varchar(8),DATEADD(D,0,GETDATE()),112);
+                    select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT),0) as  MTDSales from OESalesSummery
+                    where TRANSDATE between  @monthStartDay and @monthCurrentDay
+                                                and AUDTORG like ?
+                                                """, func.con, params={branch_name})
 
-    monthly_return_df = pd.read_sql_query("""select ISNULL(sum(EXTINVMISC), 0) as ReturnAmount from OESalesDetails
-                    where AUDTORG like ? and transtype<>1 and PRICELIST <> 0 and
+    monthly_return_df = pd.read_sql_query("""select ISNULL(sum(invneth-TAMOUNT1H+INVDISCAMT), 0) as ReturnAmount from OESalesSummery
+                    where AUDTORG like ? and transtype<>1  and
                     (TRANSDATE between
                     (convert(varchar(8),DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0),112))
                     and (convert(varchar(8),DATEADD(D,0,GETDATE()),112)))
@@ -127,14 +107,14 @@ def generate_all_return_info(branch_name):
     # print('MTD Return Added')
     # # ---------- Yearly return Box ------------------------
     yearly_sales = pd.read_sql_query("""
-                        select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails
+                        select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT),0) as  YTDSales from OESalesSummery
                         where AUDTORG like ? AND TRANSDATE>= (convert(varchar(8),DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0),112))
                         """, func.con, params={branch_name})
 
     yearly_return = pd.read_sql_query("""
-                              select isnull(sum(EXTINVMISC),0) as ReturnAmount from OESalesDetails where
+                              select isnull(sum(invneth-TAMOUNT1H+INVDISCAMT),0) as ReturnAmount from OESalesSummery where
                             AUDTORG like ? and
-                            transtype<>1 and PRICELIST <> 0 and
+                            transtype<>1 and
                             (TRANSDATE between (convert(varchar(8),DATEADD(yy, DATEDIFF(yy, 0, GETDATE()), 0),112))
                             and (convert(varchar(8),DATEADD(D,0,GETDATE()),112)))
              """, func.con, params={branch_name})
@@ -171,18 +151,19 @@ def generate_all_return_info(branch_name):
     # print('YTD Return Added')
 
     # # ---------- YAGO MTD  Return Box ------------------------
-    yago_monthly_sales = pd.read_sql_query("""Declare @YagoMonthStartDay NVARCHAR(MAX);
+    yago_monthly_sales = pd.read_sql_query(""" Declare @YagoMonthStartDay NVARCHAR(MAX);
                             Declare @YagomonthCurrentDay NVARCHAR(MAX);
-                            SET @YagoMonthStartDay = convert(varchar(6), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112)
+                            SET @YagoMonthStartDay = convert(varchar(10),DATEADD(YEAR, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)),112)
                             set @YagomonthCurrentDay = convert(varchar(8), DATEADD(year, -1, GETDATE()), 112)
-                            select  Sum(EXTINVMISC) as  MTDSales from OESalesDetails
+                            select  Sum(invneth-TAMOUNT1H+INVDISCAMT) as  MTDSales from OESalesSummery
                             where TRANSDATE between  @YagoMonthStartDay and @YagomonthCurrentDay
                             and AUDTORG like ?
                              """, func.con, params={branch_name})
 
-    yago_monthly_return_df = pd.read_sql_query("""select ISNULL(sum(EXTINVMISC), 0) as ReturnAmount from OESalesDetails
-            where AUDTORG like ? and transtype<>1 and PRICELIST <> 0 and
-            transdate between (convert(varchar(6), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
+    yago_monthly_return_df = pd.read_sql_query("""select ISNULL(sum(invneth-TAMOUNT1H+INVDISCAMT), 0) as ReturnAmount
+            from OESalesSummery
+            where AUDTORG like ? and transtype<>1  and
+            transdate between (convert(varchar(10),DATEADD(YEAR, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)),112))
             and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112))
                                 """, func.con, params={branch_name})
 
@@ -218,15 +199,16 @@ def generate_all_return_info(branch_name):
     # print('YAGO MTD Return Added')
     # # # ---------- YAGO YTD Return  Box ------------------------
     yago_yearly_sales = pd.read_sql_query("""
-                            select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails
+                            select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT),0) as  YTDSales from OESalesSummery
                             where AUDTORG like ? AND TRANSDATE between (convert(varchar(8), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
                             and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112))
                             """, func.con, params={branch_name})
 
     yago_yearly_return = pd.read_sql_query("""
-                            select isnull(sum(EXTINVMISC),0) as ReturnAmount from OESalesDetails where
+                            select isnull(sum(invneth-TAMOUNT1H+INVDISCAMT),0) as ReturnAmount 
+                            from OESalesSummery where
                             AUDTORG like ? and
-                            transtype<>1 and PRICELIST <> 0 and
+                            transtype<>1  and
                             (TRANSDATE between (convert(varchar(8), DATEFROMPARTS ( DATEPART(yyyy, GETDATE()) - 1, 1, 1 ), 112))
                             and (convert(varchar(8), DATEADD(year, -1, GETDATE()), 112)))
                             """, func.con, params={branch_name})
@@ -263,7 +245,6 @@ def generate_all_return_info(branch_name):
 
     # plt.tight_layout()
     plt.savefig('./Images/return.png')
-    dirpath = os.path.dirname(os.path.realpath(__file__))
     im = Image.open('./Images/return.png')
     left = 0
     top = 0

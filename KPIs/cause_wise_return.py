@@ -1,52 +1,33 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import os
 
-dirpath = os.path.dirname(os.path.realpath(__file__))
-
-import smtplib
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from math import log, floor
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pyodbc as db
-import xlrd
-from matplotlib.patches import Patch
-from PIL import Image, ImageDraw, ImageFont
-import pytz
-import datetime as dd
-from PIL import Image
-from datetime import datetime
+
 
 import Functions.helper_functions as func
 
 def cause_wise_teturn(branch_name):
     try:
-        cause_wise_return_df = pd.read_sql_query("""select case
-                            when Cause_Of_Return_ID = '000'  THEN 'Not Mentioned'
-                            when Cause_Of_Return_ID = '005'  THEN 'Product Short'
-                            when Cause_Of_Return_ID = '010'  THEN 'Shop Closed'
-                            when Cause_Of_Return_ID = '015'  THEN 'Canceled/Cash Short'
-                            when Cause_Of_Return_ID = '020'  THEN 'Computer Mistake'
-                            when Cause_Of_Return_ID = '025'  THEN 'Next Day Delivery'
-                            when Cause_Of_Return_ID = '030'  THEN 'Part Sale'
-                            when Cause_Of_Return_ID = '035'  THEN 'Not Ordered'
-                            when Cause_Of_Return_ID = '040'  THEN 'Not Delivered'
-                            when Cause_Of_Return_ID = '050'  THEN 'Approved Return'
-                            when Cause_Of_Return_ID = '065'  THEN 'MSO Mistake'
-                            End AS Cause
-                            , ISNULL(sum(EXTINVMISC), 0) as ReturnAmount from OESalesDetails
-                            where AUDTORG like ? and transtype<>1 and PRICELIST <> 0 and
-                            TRANSDATE between
-                            (convert(varchar(8),DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0),112))
-                            and (convert(varchar(8),DATEADD(D,0,GETDATE()),112))
-                            group by Cause_Of_Return_ID""", func.con, params={branch_name})
+        cause_wise_return_df = pd.read_sql_query(""" select case
+        when Cause_Of_Return_ID = '000'  THEN 'Not Mentioned'
+        when Cause_Of_Return_ID = '005'  THEN 'Product Short'
+        when Cause_Of_Return_ID = '010'  THEN 'Shop Closed'
+        when Cause_Of_Return_ID = '015'  THEN 'Canceled/Cash Short'
+        when Cause_Of_Return_ID = '020'  THEN 'Computer Mistake'
+        when Cause_Of_Return_ID = '025'  THEN 'Next Day Delivery'
+        when Cause_Of_Return_ID = '030'  THEN 'Part Sale'
+        when Cause_Of_Return_ID = '035'  THEN 'Not Ordered'
+        when Cause_Of_Return_ID = '040'  THEN 'Not Delivered'
+        when Cause_Of_Return_ID = '050'  THEN 'Approved Return'
+        when Cause_Of_Return_ID = '065'  THEN 'MSO Mistake'
+        End AS Cause
+        ,  ISNULL(sum(invneth-TAMOUNT1H+INVDISCAMT), 0) as ReturnAmount
+        from OESalesSummery
+        where AUDTORG like ? and transtype<>1 and
+        TRANSDATE between
+        (convert(varchar(8),DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0),112))
+        and (convert(varchar(8),DATEADD(D,0,GETDATE()),112))
+        group by Cause_Of_Return_ID""", func.con, params={branch_name})
 
         Cause_name = cause_wise_return_df['Cause']
         y_pos = np.arange(len(Cause_name))

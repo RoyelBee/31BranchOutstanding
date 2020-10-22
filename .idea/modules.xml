@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/31BranchOutstanding.iml" filepath="$PROJECT_DIR$/.idea/31BranchOutstanding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ERP_monthly_emp_reports/.idea/ERP_monthly_emp_reports.iml" filepath="$PROJECT_DIR$/../ERP_monthly_emp_reports/.idea/ERP_monthly_emp_reports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SKF_Outstanding_Report/.idea/SKF_Final_outstanding_report.iml" filepath="$PROJECT_DIR$/../SKF_Outstanding_Report/.idea/SKF_Final_outstanding_report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TCPL_PSR_Analysis/.idea/TCPL_PSR_Analysis.iml" filepath="$PROJECT_DIR$/../TCPL_PSR_Analysis/.idea/TCPL_PSR_Analysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gmp_report_with_functions/.idea/gmp_report_with_functions.iml" filepath="$PROJECT_DIR$/../gmp_report_with_functions/.idea/gmp_report_with_functions.iml" />
     </modules>
   </component>
 </project>
