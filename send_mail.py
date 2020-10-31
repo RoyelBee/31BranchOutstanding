@@ -34,69 +34,69 @@ import send_error_mail as error
 # # ------- kamrul Branches -----------------------------------------------
 # # -----------------------------------------------------------------------
 
-kamrul_branch = ['JESSKF', 'MIRSKF', 'KHLSKF', 'COMSKF', 'PATSKF', 'BSLSKF']
-
-try:
-    action.generate_kamrul_mail('JESSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('JESSKF')
-
-try:
-    action.generate_kamrul_mail('MIRSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('MIRSKF')
-
-try:
-    action.generate_kamrul_mail('KHLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('KHLSKF')
-
-try:
-    action.generate_kamrul_mail('COMSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('COMSKF')
-
-try:
-    action.generate_kamrul_mail('PATSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('PATSKF')
-
-try:
-    action.generate_kamrul_mail('BSLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-except:
-    error.send_error_msg('BSLSKF')
+# kamrul_branch = ['JESSKF', 'MIRSKF', 'KHLSKF', 'COMSKF', 'PATSKF', 'BSLSKF']
+#
+# try:
+#     action.generate_kamrul_mail('JESSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('JESSKF')
+#
+# try:
+#     action.generate_kamrul_mail('MIRSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('MIRSKF')
+#
+# try:
+#     action.generate_kamrul_mail('KHLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('KHLSKF')
+#
+# try:
+#     action.generate_kamrul_mail('COMSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('COMSKF')
+#
+# try:
+#     action.generate_kamrul_mail('PATSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('PATSKF')
+#
+# try:
+#     action.generate_kamrul_mail('BSLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+# except:
+#     error.send_error_msg('BSLSKF')
 
 # # ------------- Anwar   -----------------------------------------------
 # # ---------------------------------------------------------------------
 
 # anwar_branch = ['MYMSKF', 'FRDSKF', 'TGLSKF', 'RAJSKF', 'SAVSK', 'BOGSKF']
 # try:
-#     action.generate_kamrul_mail('MYMSKF', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('MYMSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('MYMSKF')
 #
 # try:
-#     action.generate_kamrul_mail('FRDSKF', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('FRDSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('FRDSKF')
 #
 # try:
-#     action.generate_kamrul_mail('TGLSKF', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('TGLSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('TGLSKF')
 #
 # try:
-#     action.generate_kamrul_mail('RAJSKF', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('RAJSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('RAJSKF')
 #
 # try:
-#     action.generate_kamrul_mail('SAVSK', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('SAVSK', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('SAVSK')
 #
 # try:
-#     action.generate_kamrul_mail('BOGSKF', 'anwar_branch@transcombd.com')
+#     action.generate_kamrul_mail('BOGSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('BOGSKF')
 

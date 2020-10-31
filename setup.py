@@ -80,7 +80,7 @@ def generate_kamrul_mail(branch, to_email):
     print(to)
 
     cc = ['', '']
-    bcc = ['', ''] # , 'fazle.rabby@transcombd.com'
+    bcc = ['rejaul.islam@transcombd.com', 'fazle.rabby@transcombd.com']
     recipient = to + cc + bcc
 
     # # ------------ Group email --------------------
