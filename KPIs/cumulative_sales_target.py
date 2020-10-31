@@ -121,7 +121,7 @@ def cumulative_sales_target(branch_name):
     # ax.set_xlabel('Day', fontsize='14', color='black', fontweight='bold')
     plt.title('13. MTD Target vs Sales - Cumulative', fontsize=16, fontweight='bold', color='#3e0a75')
     plt.xticks(np.arange(1, total_days + 1, 1))
-    plt.legend(['sales', 'target'], loc='upper right', fontsize='14')
+    plt.legend(['sales', 'target'], loc='best', fontsize='14')
     plt.text(list_index_for_sale, ttt[list_index_for_sale],  func.get_value(str(int(ttt[list_index_for_sale]))) + 'K',
              color='black', fontsize=12, fontweight='bold')
     plt.text(list_index_for_sale, new[list_index_for_sale], func.get_value(str(int(new[list_index_for_sale]))) + 'K',

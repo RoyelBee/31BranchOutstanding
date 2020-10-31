@@ -34,37 +34,37 @@ import send_error_mail as error
 # # ------- kamrul Branches -----------------------------------------------
 # # -----------------------------------------------------------------------
 
-# kamrul_branch = ['JESSKF', 'MIRSKF', 'KHLSKF', 'COMSKF', 'PATSKF', 'BSLSKF']
-#
-# try:
-#     action.generate_kamrul_mail('JESSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('JESSKF')
-#
-# try:
-#     action.generate_kamrul_mail('MIRSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('MIRSKF')
-#
-# try:
-#     action.generate_kamrul_mail('KHLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('KHLSKF')
-#
-# try:
-#     action.generate_kamrul_mail('COMSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('COMSKF')
-#
-# try:
-#     action.generate_kamrul_mail('PATSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('PATSKF')
-#
-# try:
-#     action.generate_kamrul_mail('BSLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
-# except:
-#     error.send_error_msg('BSLSKF')
+kamrul_branch = ['JESSKF', 'MIRSKF', 'KHLSKF', 'COMSKF', 'PATSKF', 'BSLSKF']
+
+try:
+    action.generate_kamrul_mail('JESSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('JESSKF')
+
+try:
+    action.generate_kamrul_mail('MIRSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('MIRSKF')
+
+try:
+    action.generate_kamrul_mail('KHLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('KHLSKF')
+
+try:
+    action.generate_kamrul_mail('COMSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('COMSKF')
+
+try:
+    action.generate_kamrul_mail('PATSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('PATSKF')
+
+try:
+    action.generate_kamrul_mail('BSLSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+except:
+    error.send_error_msg('BSLSKF')
 
 # # ------------- Anwar   -----------------------------------------------
 # # ---------------------------------------------------------------------

@@ -80,7 +80,7 @@ def generate_kamrul_mail(branch, to_email):
     print(to)
 
     cc = ['', '']
-    bcc = ['rejaul.islam@transcombd.com', 'fazle.rabby@transcombd.com']
+    bcc = ['', ''] # , 'fazle.rabby@transcombd.com'
     recipient = to + cc + bcc
 
     # # ------------ Group email --------------------
@@ -114,9 +114,11 @@ def generate_kamrul_mail(branch, to_email):
                <img src="cid:cumulative_day_wise_sales_target"  width='796'><br>
     
                """ + all_table + """
-    
+                If there is any inconvenience, you are requested to communicate with the ERP AI Team: 
+                <b>(Mobile: 01713-389972, 01709-633912) </b> <br>
+                <i><font color="blue"> ***This is a system generated report *** </i></font>  <br>
                 <img src="cid:logoo" height='100' width='200'> <br>
-               <i><font color="blue"> ***This is a system generated report *** </i></font>""",
+                """,
                        'html')
 
     msgAlternative.attach(msgText)
