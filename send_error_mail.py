@@ -13,9 +13,10 @@ def send_error_msg(bramch):
     #     bcc = ['', '']
     #     print('Report Sending to = ', to)
 
-    to = ['yakub@transcombd.com', 'tawhid@transcombd.com']
+    to = ['', ''] #['yakub@transcombd.com', 'tawhid@transcombd.com']
     cc = ['', '']
-    bcc = ['aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com', 'fazle.rabby@transcombd.com']
+    bcc = ['rejaul.islam@transcombd.com', ''] #['aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com',
+    # 'fazle.rabby@transcombd.com']
 
     msgRoot = MIMEMultipart('related')
     me = 'erp-bi.service@transcombd.com'

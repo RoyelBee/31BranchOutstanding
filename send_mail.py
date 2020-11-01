@@ -37,7 +37,7 @@ import send_error_mail as error
 # kamrul_branch = ['JESSKF', 'MIRSKF', 'KHLSKF', 'COMSKF', 'PATSKF', 'BSLSKF']
 #
 # try:
-#     action.generate_kamrul_mail('JESSKF', 'kamrul.ahsan@tdcl.transcombd.com')
+#     action.generate_kamrul_mail('JESSKF', 'rejaul.islam@transcombd.com')
 # except:
 #     error.send_error_msg('JESSKF')
 #
