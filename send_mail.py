@@ -91,9 +91,9 @@ import send_error_mail as error
 #     error.send_error_msg('RAJSKF')
 #
 # try:
-#     action.generate_kamrul_mail('SAVSK', 'anwar.hussain@tdcl.transcombd.com')
+#     action.generate_kamrul_mail('SAVSKF', 'anwar.hussain@tdcl.transcombd.com')
 # except:
-#     error.send_error_msg('SAVSK')
+#     error.send_error_msg('SAVSKF')
 #
 # try:
 #     action.generate_kamrul_mail('BOGSKF', 'anwar.hussain@tdcl.transcombd.com')
@@ -160,17 +160,17 @@ import send_error_mail as error
 #     action.generate_kamrul_mail('SYLSKF', 'nurul.amin@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('SYLSKF')
-#
+
 # try:
 #     action.generate_kamrul_mail('MHKSKF', 'nurul.amin@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('MHKSKF')
-#
+
 # try:
 #     action.generate_kamrul_mail('MLVSKF', 'nurul.amin@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('MLVSKF')
-#
+
 # try:
 #     action.generate_kamrul_mail('FENSKF', 'nurul.amin@tdcl.transcombd.com')
 # except:
@@ -189,7 +189,7 @@ import send_error_mail as error
 #     action.generate_kamrul_mail('CTGSKF', 'sheikh.hafizur@tdcl.transcombd.com')
 # except:
 #     error.send_error_msg('CTGSKF')
-#
+# #
 # try:
 #     action.generate_kamrul_mail('CTNSKF', 'sheikh.hafizur@tdcl.transcombd.com')
 # except:

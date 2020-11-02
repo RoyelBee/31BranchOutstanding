@@ -63,7 +63,7 @@ def send_error_msg(bramch):
     server = smtplib.SMTP(email_server_host, port)
     server.ehlo()
     print('\n-----------------')
-    print('Sending Mail')
+    print('Sending Error Mail')
     server.sendmail(me, recipient, msgRoot.as_string())
     print('Mail Send')
     print('-------------------')
