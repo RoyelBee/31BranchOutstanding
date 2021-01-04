@@ -8,14 +8,14 @@ import Functions.helper_functions as func
 
 
 def cumulative_sales_target(branch_name):
-    ever_sale_df = pd.read_sql_query("""select right(formatdate,2) as days,isnull(amount,0) as Amount from (
-       select formatdate from [Calendar] where left(formatdate,6)=convert(varchar(6), GETDATE(),112)) as cal
-       left join (
-       select cast(transdate as varchar(8)) as Transdate,sum(EXTINVMISC)/1000 as amount from OESalesDetails
-       where left(transdate,6)=convert(varchar(6), GETDATE(),112) and AUDTORG like ?
-       group by cast(transdate as varchar(8))) as sales
-       on cal.formatdate=sales.Transdate
-       order by formatdate""", func.con, params={branch_name})
+    ever_sale_df = pd.read_sql_query(""" 
+    select right(cast(transdate as varchar(8)), 2) as days,isnull(sum(EXTINVMISC)/1000, 0) as Amount from OESalesDetails
+    where transdate between convert(varchar(8),DATEADD(month, DATEDIFF(month, 0,  GETDATE()), 0),112) and 
+    convert(varchar(8),DATEADD(D,0,GETDATE()-1),112)
+    and AUDTORG like ?
+    group by transdate
+    order by transdate asc 
+        """, func.con, params={branch_name})
 
     all_days_in_month = ever_sale_df['days'].tolist()
     day_to_day_sale = ever_sale_df['Amount'].tolist()
@@ -30,12 +30,12 @@ def cumulative_sales_target(branch_name):
     current_day_in_int = int(current_day)
     # print(current_day_in_int)
 
-    final_days_array = []
-    final_sales_array = []
-    for t_va in range(0, current_day_in_int):
-        # print(t_va)
-        final_days_array.append(all_days_in_month[t_va])
-        final_sales_array.append(day_to_day_sale[t_va])
+    # final_days_array = []
+    # final_sales_array = []
+    # for t_va in range(0, current_day_in_int):
+    #     # print(t_va)
+    #     final_days_array.append(all_days_in_month[t_va])
+    #     final_sales_array.append(day_to_day_sale[t_va])
 
     # print(final_days_array)
     # print(final_sales_array)
@@ -46,11 +46,12 @@ def cumulative_sales_target(branch_name):
                        SET @DaysInMonth = DAY(EOMONTH(GETDATE())) 
                        select ISNULL(((Sum(TARGET)/@DaysInMonth)/1000), 0) as  YesterdayTarget from TDCL_BranchTarget  
                        where YEARMONTH = @CurrentMonth and AUDTORG like ?""",  func.con, params={branch_name})
+
     totarget = EveryD_Target2_df.values
     target_for_target = int(totarget[0, 0])
     # print(target_for_target)
 
-    y_pos = np.arange(len(final_days_array))
+    y_pos = np.arange(len(all_days_in_month))
     # print(y_pos)
 
     # --------------------------------------copy--------------------------------------
@@ -86,7 +87,7 @@ def cumulative_sales_target(branch_name):
         fin_target = 0
     # print(ttt) #-------------------target data
 
-    values = final_sales_array
+    values = day_to_day_sale
     length = len(values)
 
     new = [0]
@@ -114,14 +115,14 @@ def cumulative_sales_target(branch_name):
     # Change the color and its transparency
     fig, ax = plt.subplots(figsize=(12.81, 4.8))
     plt.fill_between(x, ttt, color="skyblue", alpha=1)
-    plt.plot(xx, new, color="red", linewidth=5, linestyle="-")
+    plt.plot(xx, new, color="green", linewidth=5, linestyle="-")
     plt.xlabel('Days', fontsize='14', color='black', fontweight='bold')
     plt.ylabel('Amount', fontsize='14', color='black', fontweight='bold')
     # ax.set_ylabel('Amount', fontsize='14', color='black', fontweight='bold')
     # ax.set_xlabel('Day', fontsize='14', color='black', fontweight='bold')
     plt.title('13. MTD Target vs Sales - Cumulative', fontsize=16, fontweight='bold', color='#3e0a75')
     plt.xticks(np.arange(1, total_days + 1, 1))
-    plt.legend(['sales', 'target'], loc='best', fontsize='14')
+    plt.legend(['Sales','Target'], loc='best', fontsize='14')
     plt.text(list_index_for_sale, ttt[list_index_for_sale],  func.get_value(str(int(ttt[list_index_for_sale]))) + 'K',
              color='black', fontsize=12, fontweight='bold')
     plt.text(list_index_for_sale, new[list_index_for_sale], func.get_value(str(int(new[list_index_for_sale]))) + 'K',
@@ -129,8 +130,9 @@ def cumulative_sales_target(branch_name):
     plt.text(list_index_for_target, ttt[list_index_for_target], func.get_value(str(int(ttt[list_index_for_target]))) + 'K',
              color='black', fontsize=12, fontweight='bold')
 
-    plt.grid()
+    # plt.grid()
+    plt.tight_layout()
     plt.savefig("./Images/Cumulative_Day_Wise_Target_vs_Sales.png")
     # plt.show()
     plt.close()
-    print('13. Cumulative day wise target sales')
+    print('12. Cumulative day wise target sales')

@@ -36,26 +36,22 @@ def generate_kamrul_mail(branch, to_email):
     cat_credit.category_wise_credit(branch)  # 2
     m_credit.matured_credit(branch)  # 3
     aging_m_credit.aging_matured_credit(branch)  # 4
-
     sec_non_mature_credit.sector_wise_non_matured_credit(branch)  # 5
     c_m_credit.closed_matured_credit(branch)  # 6
     cash.cash_outstanding(branch)  # 7
-
     cash_drop.aging_cash_drop(branch)  # 8
     dp_return.dp_man_wise_return(branch)  # 9
     cause_return.cause_wise_teturn(branch)  # 10
-
     target_sales.target_sales(branch)  # 11
     day_target_sales.day_wise_target_sales(branch)  # 11
     cm_target_sales.cumulative_sales_target(branch)  # 12
+
     fig_join.join_all_images()
 
     return_info.generate_all_return_info(branch)
-
     data_generator.closed_to_matured_data(branch)
     data_generator.colsed_to_matured_mail_data(branch)
     data_generator.aging_matured_data(branch)
-
     data_generator.aging_matured_table(branch)
     data_generator.cash_drop_data(branch)
     data_generator.cashdrop_table(branch)
@@ -64,6 +60,7 @@ def generate_kamrul_mail(branch, to_email):
     html_sec.get_html_table2()
     html_sec.get_html_table2()
     all_table = html_sec.all_table
+
 
     msgRoot = MIMEMultipart('related')
     me = 'erp-bi.service@transcombd.com'
@@ -76,11 +73,12 @@ def generate_kamrul_mail(branch, to_email):
 
     # mail = str(to_email)
     # print(mail)
-    to = [to_email, '']
+    # to = [to_email, '']
+    to = ['rejaul.islam@transcombd.com', '']
     print(to)
 
     cc = ['', '']
-    bcc = ['rejaul.islam@transcombd.com', 'fazle.rabby@transcombd.com']
+    bcc = ['', '']
     recipient = to + cc + bcc
 
     # # ------------ Group email --------------------
@@ -217,10 +215,8 @@ def generate_kamrul_mail(branch, to_email):
     # Closed to matured Excel attachment
     part = MIMEBase('application', "octet-stream")
     file_location = './Data/ClosedToMatured.xlsx'
-
     # Create the attachment file (only do it once)
     import os
-
     filename = os.path.basename(file_location)
     attachment = open(file_location, "rb")
     part = MIMEBase('application', 'octet-stream')

@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../SKF_Outstanding_Report" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../TCPL_PSR_Analysis" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../gmp_report_with_functions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../NSM_Sales_Analysis" vcs="Git" />
   </component>
 </project>

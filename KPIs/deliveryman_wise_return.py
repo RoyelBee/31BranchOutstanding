@@ -9,7 +9,7 @@ import Functions.helper_functions as func
 
 def dp_man_wise_return(branch_name):
     try:
-        delivery_man_wise_return_df = pd.read_sql_query("""select TWO.ShortName as DPNAME, SUM(Sales.ReturnAmount) as ReturnAmount from
+        delivery_man_wise_return_df = pd.read_sql_query(""" select TWO.ShortName as DPNAME, isnull(SUM(Sales.ReturnAmount), 0) as ReturnAmount from
             (select  DPID, AUDTORG,ISNULL(sum(case when TRANSTYPE<>1 then INVNETH *-1 end), 0) /ISNULL(sum(case when TRANSTYPE=1 then INVNETH end), 0)*100 as ReturnAmount from OESalesSummery
                     where AUDTORG like ? and 
                     left(TRANSDATE,6)=convert(varchar(6),getdate(),112)
@@ -21,7 +21,7 @@ def dp_man_wise_return(branch_name):
             where TWO.ShortName is not null
             and Sales.ReturnAmount>0
             group by TWO.ShortName
-            order by ReturnAmount DESC""", func.con, params=(branch_name, branch_name))
+            order by ReturnAmount DESC """, func.con, params=(branch_name, branch_name))
 
         DPNAME = delivery_man_wise_return_df['DPNAME']
         y_pos = np.arange(len(DPNAME))
@@ -57,8 +57,12 @@ def dp_man_wise_return(branch_name):
         print('9. Delivery man wise return generated')
     except:
         print("sorry! 9. Delivery man wise return cannot be generated")
+
         plt.figure(figsize=(12.81, 4.8))
-        plt.text(0.5, 0.5, str('Sorry! Due to data unavailability, the graph cannot be generated'), fontsize=25,
+
+        plt.title("9. Delivery Person's Return %", color='#3e0a75', fontsize='16', fontweight='bold')
+
+        plt.text(0.5, 0.5, str('Sorry! No Return Data, therefore the figure cannot be generated'), fontsize=25,
                  color='red',
                  horizontalalignment='center', verticalalignment='center')
         plt.axis('off')

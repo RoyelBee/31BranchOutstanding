@@ -54,5 +54,5 @@ def create_terms_wise_outstanding(branc_names):
     plt.tight_layout()
     plt.savefig('./Images/terms_wise_outstanding.png')
 
-    print('Fig 01: Terms wise Outstanding Generated')
+    print('01: Terms wise Outstanding Generated')
     plt.close()
