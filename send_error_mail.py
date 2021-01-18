@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 import pandas as pd
 import Functions.helper_functions as func
 
+
 def send_error_msg(bramch):
     # if (to == ['nawajesh@skf.transcombd.com', '']):
     #     to = ['rejaul.islam@transcombd.com', '']
@@ -13,9 +14,9 @@ def send_error_msg(bramch):
     #     bcc = ['', '']
     #     print('Report Sending to = ', to)
 
-    to = ['', ''] #['yakub@transcombd.com', 'tawhid@transcombd.com']
+    to = ['', '']  # ['yakub@transcombd.com', 'tawhid@transcombd.com']
     cc = ['', '']
-    bcc = ['rejaul.islam@transcombd.com', ''] #['aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com',
+    bcc = ['rejaul.islam@transcombd.com', 'yakub@transcombd.com']  # ['aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com',
     # 'fazle.rabby@transcombd.com']
 
     msgRoot = MIMEMultipart('related')
@@ -68,4 +69,3 @@ def send_error_msg(bramch):
     print('Mail Send')
     print('-------------------')
     server.close()
-

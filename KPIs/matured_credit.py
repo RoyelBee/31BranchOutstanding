@@ -22,7 +22,11 @@ def matured_credit(branch_name):
 
 
     Institution = int(mature_credit_df.Amount.iloc[0])
-    retail = int(mature_credit_df.Amount.iloc[1])
+    try:
+        retail = int(mature_credit_df.Amount.iloc[1])
+    except:
+        retail = 0
+
 
     values = [Institution, retail]
 

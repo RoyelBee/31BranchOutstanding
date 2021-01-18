@@ -152,12 +152,12 @@ def generate_all_return_info(branch_name):
 
     # # ---------- YAGO MTD  Return Box ------------------------
     yago_monthly_sales = pd.read_sql_query(""" Declare @YagoMonthStartDay NVARCHAR(MAX);
-                            Declare @YagomonthCurrentDay NVARCHAR(MAX);
-                            SET @YagoMonthStartDay = convert(varchar(10),DATEADD(YEAR, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)),112)
-                            set @YagomonthCurrentDay = convert(varchar(8), DATEADD(year, -1, GETDATE()), 112)
-                            select  Sum(invneth-TAMOUNT1H+INVDISCAMT) as  MTDSales from OESalesSummery
-                            where TRANSDATE between  @YagoMonthStartDay and @YagomonthCurrentDay
-                            and AUDTORG like ?
+                        Declare @YagomonthCurrentDay NVARCHAR(MAX);
+                        SET @YagoMonthStartDay = convert(varchar(10),DATEADD(YEAR, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)),112)
+                        set @YagomonthCurrentDay = convert(varchar(8), DATEADD(year, -1, GETDATE()), 112)
+                        select  isnull(Sum(invneth-TAMOUNT1H+INVDISCAMT), 0) as  MTDSales from OESalesSummery
+                        where TRANSDATE between  @YagoMonthStartDay and @YagomonthCurrentDay
+                        and AUDTORG like ?
                              """, func.con, params={branch_name})
 
     yago_monthly_return_df = pd.read_sql_query("""select ISNULL(sum(invneth-TAMOUNT1H+INVDISCAMT), 0) as ReturnAmount
@@ -179,7 +179,10 @@ def generate_all_return_info(branch_name):
     )
     ax.add_patch(p)
     retn = abs(monthly_return)
-    ret1 = float((retn / m_sales) * 100)
+    try:
+        ret1 = float((retn / m_sales) * 100)
+    except:
+        ret1 = 0
     return_p = '%.2f' % (ret1)
     return_p = str(return_p) + '%'
     kpi_label = 'YAGO MTD' + "\n"
@@ -220,9 +223,12 @@ def generate_all_return_info(branch_name):
     y_sales = int(yago_yearly_sales['YTDSales'])
     yearly_return_amount = int(yago_yearly_return['ReturnAmount'])
     return_amount = abs(yearly_return_amount)
-    return_p = float((return_amount / y_sales) * 100)
-    return_p = '%.2f' % (return_p)
-    return_p = str(return_p) + '%'
+    try:
+        return_p = float((return_amount / y_sales) * 100)
+        return_p = '%.2f' % (return_p)
+        return_p = str(return_p) + '%'
+    except:
+        return_p = '0%'
 
     p = patches.Rectangle(
         (left, bottom), width, height,

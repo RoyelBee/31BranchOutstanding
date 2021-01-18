@@ -1,4 +1,3 @@
-
 import numpy as np
 import pandas as pd
 
@@ -77,8 +76,6 @@ def colsed_to_matured_mail_data(branch_name):
     print('Data 02: Closed to Matured Mail Table')
 
 
-
-
 def aging_matured_data(branch_name):
     AgeingMaturedcredit_df = pd.read_sql_query("""
                            select CUSTOMER as 'Cust ID', CUSTNAME as 'Cust Name',CustomerInformation.TEXTSTRE1 as 'Address', CustomerInformation.MSOTR as 'Territory',
@@ -141,6 +138,7 @@ def aging_matured_table(branch_name):
     writer.save()
     print('Data 04: Aging Matured Table ')
 
+
 def cash_drop_data(branch_name):
     CashDrop_df = pd.read_sql_query("""
                          Select CUSTOMER as 'Cust ID', CUSTNAME as 'Cust Name',CustomerInformation.TEXTSTRE1 as 'Address', CustomerInformation.MSOTR as 'Territory',
@@ -197,5 +195,3 @@ def cashdrop_table(branch_name):
     worksheet = writer.sheets['Sheet1']
     writer.save()
     print('Data 06: Cash Drop Table')
-
-

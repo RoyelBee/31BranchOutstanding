@@ -25,10 +25,10 @@ import KPIs.cumulative_sales_target as cm_target_sales
 import KPIs.excel_file_genetator as data_generator
 import Functions.email_finder as email
 import Functions.helper_functions as func
-import KPIs.html_section as html_sec
+import KPIs.design_part as layout
 
 
-def generate_kamrul_mail(branch, to_email):
+def generate_report(branch, to_email):
     import KPIs.banner as banner
     banner.create_banner_fig(branch)
     trems_outs.create_terms_wise_outstanding(branch)  # 1
@@ -47,7 +47,6 @@ def generate_kamrul_mail(branch, to_email):
     cm_target_sales.cumulative_sales_target(branch)  # 12
 
     fig_join.join_all_images()
-
     return_info.generate_all_return_info(branch)
     data_generator.closed_to_matured_data(branch)
     data_generator.colsed_to_matured_mail_data(branch)
@@ -56,29 +55,19 @@ def generate_kamrul_mail(branch, to_email):
     data_generator.cash_drop_data(branch)
     data_generator.cashdrop_table(branch)
 
-    html_sec.get_html_table()
-    html_sec.get_html_table2()
-    html_sec.get_html_table2()
-    all_table = html_sec.all_table
-
-
     msgRoot = MIMEMultipart('related')
     me = 'erp-bi.service@transcombd.com'
 
     branchname_generator_df = pd.read_sql_query("""select branch,ndmname,branchname from ndm where branch like ? """,
                                                 func.con, params={branch})
 
-
     branch_name = branchname_generator_df['branchname']
 
-    # mail = str(to_email)
-    # print(mail)
-    # to = [to_email, '']
-    to = ['rejaul.islam@transcombd.com', '']
-    print(to)
+    to = [to_email, '']
+    # to = ['rejaul.islam@transcombd.com', '']
 
     cc = ['', '']
-    bcc = ['', '']
+    bcc = ['rejaul.islam@transcombd.com', 'biswascma@yahoo.com', 'zubair.transcom@gmail.com', 'tawhid@transcombd.com']
     recipient = to + cc + bcc
 
     # # ------------ Group email --------------------
@@ -111,7 +100,8 @@ def generate_kamrul_mail(branch, to_email):
                <img src="cid:day_wise_sales_target"  width='796'><br>
                <img src="cid:cumulative_day_wise_sales_target"  width='796'><br>
     
-               """ + all_table + """
+               """ + layout.generate_layout() + """
+               
                 If there is any inconvenience, you are requested to communicate with the ERP AI Team: 
                 <b>(Mobile: 01713-389972, 01709-633912) </b> <br>
                 <i><font color="blue"> ***This is a system generated report *** </i></font>  <br>
@@ -260,4 +250,3 @@ def generate_kamrul_mail(branch, to_email):
     server.close()
     import time
     time.sleep(5)
-

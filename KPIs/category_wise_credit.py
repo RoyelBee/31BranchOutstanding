@@ -6,16 +6,16 @@ import Functions.helper_functions as func
 
 
 def category_wise_credit(branch_name):
-    credit_category_df = pd.read_sql_query(""" Select case when Days_Diff>0 then 'Matured Credit' else 'Regular Credit' End as  'Category',Sum(OUT_NET) as Amount from
-                            (select INVNUMBER,INVDATE,
-                            CUSTOMER,TERMS,MAINCUSTYPE,
-                            CustomerInformation.CREDIT_LIMIT_DAYS,
-                            datediff([dd] , CONVERT (DATETIME , LTRIM(cust_out.INVDATE) , 102) , GETDATE())+1-CREDIT_LIMIT_DAYS as Days_Diff,
-                            OUT_NET from [ARCOUT].dbo.[CUST_OUT]
-                            join ARCHIVESKF.dbo.CustomerInformation
-                            on [CUST_OUT].CUSTOMER = CustomerInformation.IDCUST
-                            where [ARCOUT].dbo.[CUST_OUT].AUDTORG like ? and TERMS<>'Cash') as TblCredit
-                            group by case when Days_Diff>0 then 'Matured Credit' else 'Regular Credit' end
+    credit_category_df = pd.read_sql_query(""" Select isnull(case when Days_Diff>0 then 'Matured Credit' else 'Regular Credit' End, 0) as  'Category',isnull(Sum(OUT_NET), 0) as Amount from
+(select INVNUMBER,INVDATE,
+CUSTOMER,TERMS,MAINCUSTYPE,
+CustomerInformation.CREDIT_LIMIT_DAYS,
+datediff([dd] , CONVERT (DATETIME , LTRIM(cust_out.INVDATE) , 102) , GETDATE())+1-CREDIT_LIMIT_DAYS as Days_Diff,
+OUT_NET from [ARCOUT].dbo.[CUST_OUT]
+join ARCHIVESKF.dbo.CustomerInformation
+on [CUST_OUT].CUSTOMER = CustomerInformation.IDCUST
+where [ARCOUT].dbo.[CUST_OUT].AUDTORG like ? and TERMS<>'Cash') as TblCredit
+group by case when Days_Diff>0 then 'Matured Credit' else 'Regular Credit' end
                                                                 """, func.con, params={branch_name})
 
 
