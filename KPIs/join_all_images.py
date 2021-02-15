@@ -70,3 +70,4 @@ def join_all_images():
     imageSize = Image.new('RGB', (1283, 482))
     imageSize.paste(imp24, (1, 1))
     imageSize.save("./Images/Cumulative_Day_wise_target_sales.png")
+    print('all image joined')

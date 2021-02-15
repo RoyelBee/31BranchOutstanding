@@ -55,18 +55,21 @@ def target_sales(branch_name):
         yoyo = YTD_Target_df.values
         Ytd_target = int(yoyo[0, 0])
         final_ytd_target = int(Ytd_target - ((Mtd_target / total_days) * (total_days - no_of_days)))
+
         LD_Sales_df = pd.read_sql_query("""Declare @Currentday NVARCHAR(MAX);
                         SET @Currentday = convert(varchar(8), GETDATE()-1,112);
                         select  isnull(Sum(EXTINVMISC),0) as  YesterdaySales from OESalesDetails  
                         where LEFT(TRANSDATE,8) = @Currentday and AUDTORG like ? """, func.con, params={branch_name})
 
         Ld_toto = LD_Sales_df.values
+
         MTD_Sales_df = pd.read_sql_query(""" Declare @Currentmonth NVARCHAR(MAX);
                         SET @Currentmonth = convert(varchar(6), GETDATE(),112);
                         select  isnull(Sum(EXTINVMISC),0) as  MTDSales from OESalesDetails  
                         where LEFT(TRANSDATE,6) = @Currentmonth and AUDTORG like ?""", func.con, params={branch_name})
 
         MTD_momo = MTD_Sales_df.values
+
         YTD_Sales_df = pd.read_sql_query("""Declare @Currentyear NVARCHAR(MAX);
                         SET @Currentyear = convert(varchar(4), GETDATE(),112);
                         select  isnull(Sum(EXTINVMISC),0) as  YTDSales from OESalesDetails  
@@ -98,7 +101,6 @@ def target_sales(branch_name):
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.legend()
-
 
         def autolabel(bars):
             for bar in bars:

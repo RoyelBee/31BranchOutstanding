@@ -1,11 +1,11 @@
 import smtplib
-import traceback
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import pandas as pd
+
 import KPIs.terms_wise_outstanding as trems_outs
 import KPIs.category_wise_credit as cat_credit
 import KPIs.matured_credit as m_credit
@@ -43,9 +43,10 @@ def generate_report(branch, to_email):
     dp_return.dp_man_wise_return(branch)  # 9
     cause_return.cause_wise_teturn(branch)  # 10
     target_sales.target_sales(branch)  # 11
-    day_target_sales.day_wise_target_sales(branch)  # 11
-    cm_target_sales.cumulative_sales_target(branch)  # 12
-
+    day_target_sales.day_wise_target_sales(branch)  # 12
+    cm_target_sales.cumulative_sales_target(branch)  # 13
+    import time
+    time.sleep(3)
     fig_join.join_all_images()
     return_info.generate_all_return_info(branch)
     data_generator.closed_to_matured_data(branch)
@@ -63,14 +64,14 @@ def generate_report(branch, to_email):
 
     branch_name = branchname_generator_df['branchname']
 
-    to = [to_email, '']
-    # to = ['rejaul.islam@transcombd.com', '']
-
+    # to = [to_email, '']
+    to = ['rejaul.islam@transcombd.com', '']
     cc = ['', '']
-    bcc = ['rejaul.islam@transcombd.com', 'biswascma@yahoo.com', 'zubair.transcom@gmail.com', 'tawhid@transcombd.com']
+    bcc = ['', '']
+    # bcc = ['yakub@@transcombd.com', 'zubair.transcom@gmail.com', 'aftab.uddin@transcombd.com', 'rejaul.islam@transcombd.com']
     recipient = to + cc + bcc
 
-    # # ------------ Group email --------------------
+    # # ------------------ Group email --------------------
     subject = "SK+F Formulation Reports - " + branch_name[0]
     email_server_host = 'mail.transcombd.com'
     port = 25
@@ -248,5 +249,5 @@ def generate_report(branch, to_email):
     print('Mail Send')
     print('-----------------')
     server.close()
-    import time
-    time.sleep(5)
+    # import time
+    # time.sleep(5)

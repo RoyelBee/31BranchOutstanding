@@ -2,9 +2,11 @@ from math import log, floor
 import pyodbc as db
 
 con = db.connect('DRIVER={SQL Server};'
-                        'SERVER=137.116.139.217;'
-                        'DATABASE=ARCHIVESKF;'
-                        'UID=sa;PWD=erp@123')
+                 'SERVER=137.116.139.217;'
+                 'DATABASE=ARCHIVESKF;'
+                 'UID=rptuser;'
+                 'PWD=Rpt@1729')
+
 
 def hazar(number):
     k = 1000.0
@@ -46,4 +48,3 @@ def human_format(number):
     k = 1000.0
     magnitude = int(floor(log(number, k)))
     return '%.1f %s ' % (number / k ** magnitude, units[magnitude])
-

@@ -25,6 +25,7 @@ def cash_outstanding(branch_name):
         colors = ['#a9e11a', '#1798ca']
         legend_element = [Patch(facecolor='#a9e11a', label='Institution'),
                           Patch(facecolor='#1798ca', label='Retail')]
+
         sector_total_credit = Institution + retail
         sector_total_credit = "Total \n" + func.joker(sector_total_credit)
 
@@ -51,4 +52,17 @@ def cash_outstanding(branch_name):
         plt.close()
         print('7. Category wise Cash Generated')
     except:
+
+        plt.figure(figsize=(12.81, 4.8))
+
+        plt.title('7. Cash Outstanding', fontsize=16, fontweight='bold', color='#3e0a75')
+
+        plt.text(0.5, 0.5, str('Sorry! this figure cannot be generated'), fontsize=25,
+                 color='red',
+                 horizontalalignment='center', verticalalignment='center')
+        plt.axis('off')
+        # plt.show()
+        plt.savefig('./Images/Category_wise_cash.png')
+        plt.close()
+
         print('No data')
